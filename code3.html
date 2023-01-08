@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM</title>
+    <link rel="stylesheet" href="code.css">
+<body>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+<div id="id01" class="modal" >
+    <form class="modal-content animate" action="code3.html" method="post" id="form" >
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="img_avatar2.webp" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input id="uname" type="text" placeholder="Enter Username" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input id="pass" type="password" placeholder="Enter Password"  required>
+        
+      <button type="submit" onclick="Login()" >Login</button>
+      <label>
+        <input id="remember" type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="findinputs()" style="width:auto;">ok</button>
+      <button type="button" onclick="clearInput()" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+ </div>
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+       modal.style.display = "none";
+    }
+}
+
+//Logged in Successfully
+function setCookie(name, value, daysToLive) {
+    // Encode value in order to escape semicolons, commas, and whitespace
+    var cookie = name + "=" + encodeURIComponent(value);
+    
+    if(typeof daysToLive === "number") {
+        /* Sets the max-age attribute so that the cookie expires
+        after the specified number of days */
+        cookie += "; max-age=" + (daysToLive*24*60*60);
+        
+        document.cookie = cookie;
+    }
+}function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+    
+    // Loop through the array elements
+    for(var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if(name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    
+    // Return null if not found
+    return null;
+}
+function checkCookie() {
+    // Get cookie using our custom function
+    
+    var firstName = getCookie("uname");
+    
+    if(firstName != "") 
+    {
+        if (window.confirm("Welcome again, " + firstName))
+        {
+          window.open('l3.html')
+        }
+    } else {
+        firstName = prompt("Please enter your first name:");
+        if(firstName != "" && firstName != null) {
+            // Set cookie using our custom function
+            setCookie("uname", firstName, 30);
+        }
+    }
+}
+function Login() { 
+  var username = document.getElementById("uname").value;
+  var password = document.getElementById("pass").value;
+if (username !="" && password !='')
+{ 
+  if(document.getElementById('remember').checked )
+{ 
+  //checkCookie()
+  if(window.confirm("Logged in successfully with remember me"))
+  {        
+    checkCookie()
+  }
+}
+}
+  else
+  {
+    if(window.confirm("Logged in successfully"))
+          {
+            window.location.href='l3.html';
+            alert('Welcome')
+          }
+}
+}
+function findinputs() {
+  box = document.getElementById('uname').value;
+  boxvalue = document.getElementById('pass').value;
+  var items=[]
+  items.push(box);
+  items.push(boxvalue);
+  console.log(items);
+}
+function clearInput() {
+    document.getElementById("form").reset();
+}
+
+
+
+    
+</script>
+    </head>
+
+</body>
+
+</html>
